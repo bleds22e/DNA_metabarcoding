@@ -7,7 +7,7 @@ library(tidyverse)
 
 ### trnL ###
 
-reads_WTU <- read_csv("Data/SequencedData/Plants/ProcessedData/trnL_reads_WeeTU.csv")
+reads_WTU <- read_csv("data/sequenced_data/trnL_reads_WeeTU.csv")
 
 # create OTU_WTU key for trnL
 all_OTU_WTU <- reads_WTU %>% 
@@ -33,7 +33,7 @@ millet_OTUs <- reads_WTU %>%
 
 ### ITS2 ###
 
-reads_WTU_ITS2 <- read_csv("Data/SequencedData/Plants/ProcessedData/ITS2_reads_WeeTU.csv")
+reads_WTU_ITS2 <- read_csv("data/sequenced_data/ITS2_reads_WeeTU.csv")
 
 # create OTU_WTU key for trnL
 all_OTU_WTU_ITS2 <- reads_WTU_ITS2 %>% 
