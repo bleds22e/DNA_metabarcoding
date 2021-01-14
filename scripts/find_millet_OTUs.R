@@ -21,7 +21,8 @@ all_species <- reads_WTU %>%
   select(Kingdom:WTU.species)
 
 millet_WTU.genus <- all_species %>% 
-  filter(Family == "Poaceae", Subfamily == "Panicoideae" | is.na(Subfamily),
+  filter(Family == "Poaceae", 
+         Subfamily == "Panicoideae" | is.na(Subfamily),
          Genus == "Panicum" | is.na(Genus)) %>% 
   select(WTU.genus) %>% 
   distinct()
@@ -50,7 +51,9 @@ all_species_ITS2 <- reads_WTU_ITS2 %>%
 #  - WTU.species.122 is Panicum miliaceum
 #  - WTU.species.121 is Panicum hirticaule
 millet_WTU.sp_ITS2 <- all_species_ITS2 %>% 
-  filter(Family == "Poaceae", Genus == "Panicum" | is.na(Genus), WTU.species != 121) %>% 
+  filter(Family == "Poaceae", 
+         Genus == "Panicum" | is.na(Genus), 
+         WTU.species != 121) %>% 
   select(WTU.species) %>% 
   distinct()
 
