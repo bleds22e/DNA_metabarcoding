@@ -20,7 +20,10 @@ krat_sp_its <- left_join(krat_its,
                               # to use the c() and = to say that they are equivalent columns
 
 # rename the species column that we added above to be "rodent_sp"
-krat_sp_its <- rename(krat_sp_its, "rodent_sp" = "species")
+krat_sp_its <- krat_sp_its %>% 
+  rename("rodent_sp" = "species") %>% 
+  filter(Reads >= 5,
+         Domain == "Eukaryota")
 
 # find the average number of reads per plant family for each krat species
 krat_family_reads <- krat_sp_its %>%          # use the krat_sp_its df
@@ -39,6 +42,20 @@ ggplot(data = krat_family_reads, aes(x = Family, y = avg_family_reads)) +
   theme_bw() + # make it prettier
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) # rotate the family names on the x-axis
 
+
+### What about with Genus?
+# find the average number of reads per plant family for each krat species
+krat_Genus_reads <- krat_sp_its %>%          # use the krat_sp_its df
+  group_by(rodent_sp, Genus, period) %>%     # group the data by these 3 columns
+  summarize(avg_genus_reads = mean(Reads))   # make a new column called avg_family_reads
+# use the package ggplot2 to make some plots
+ggplot(data = krat_Genus_reads, aes(x = Genus, y = avg_genus_reads)) +
+  # tell ggplot what df to use and which columns will be the values on the x and y axes
+  geom_col() + # add a geom (like a shape) to plot--this one is saying make a plot with columns
+  facet_wrap(period ~ rodent_sp,     # split the plot into multiple plots, making a mini plot for 
+             nrow = 3, ncol = 2) +   # each combination of period and krat. Make it have 3 rows and 2 columns
+  theme_bw() + # make it prettier
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 8))
 
 # Other things that you might want to investigate or think about:
 # - remove any OTUs that have fewer than 10 or 50 or 100 reads to focus on the majority of the diet
